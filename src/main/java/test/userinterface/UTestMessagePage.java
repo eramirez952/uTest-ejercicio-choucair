@@ -7,7 +7,7 @@ public class UTestMessagePage {
 
     public static final Target BANNER = Target.the("Show the welcome´s message")
             .located(By.xpath(
-                    "//h1[contains(text(), 'Welcome to the world's largest community of freelance software testers!')]"
+                    "//h1[contains(text(), 'Welcome to the community of freelance software testers')]"
             )
             );
 

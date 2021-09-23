@@ -19,20 +19,31 @@ import test.userinterface.UTestLocationData;
 import test.userinterface.UTestPersonalData;
 
 public class LocationInput implements Task {
-    public static LocationInput addressData() {
-        return Tasks.instrumented(LocationInput.class);
+
+    private String strCity;
+    private String strZip;
+    private String strCountry;
+
+    public LocationInput(String strCity, String strZip, String strCountry) {
+        this.strCity = strCity;
+        this.strZip = strZip;
+        this.strCountry = strCountry;
+    }
+
+    public static LocationInput addressData(String strCity, String strZip, String strCountry) {
+        return Tasks.instrumented(LocationInput.class, strCity, strZip, strCountry);
     }
 
     @Override
     public <T extends Actor> void performAs(T actor) {
 
         actor.attemptsTo(
-                Enter.theValue("Tunja").into(UTestLocationData.INPUT_CITY),
+                Enter.theValue(strCity).into(UTestLocationData.INPUT_CITY),
                 Hit.the(Keys.ARROW_DOWN).into(UTestLocationData.INPUT_CITY),
                 Hit.the(Keys.TAB).into(UTestLocationData.INPUT_CITY),
-                Enter.theValue("150001").into(UTestLocationData.INPUT_ZIP_CODE),
+                Enter.theValue(strZip).into(UTestLocationData.INPUT_ZIP_CODE),
                 Click.on(UTestLocationData.COUNTRY_BOX),
-                Enter.theValue("Colombia").into(UTestLocationData.COUNTRY),
+                Enter.theValue(strCountry).into(UTestLocationData.COUNTRY),
                 Hit.the(Keys.ARROW_DOWN).into(UTestLocationData.COUNTRY),
                 Hit.the(Keys.TAB).into(UTestLocationData.COUNTRY),
                 Click.on(UTestPersonalData.NEXT_BUTTON)

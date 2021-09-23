@@ -12,31 +12,46 @@ import test.userinterface.UTestDevicesData;
 import test.userinterface.UTestLocationData;
 
 public class DevicesInput implements Task {
-    public static DevicesInput devicesData() {
-        return Tasks.instrumented(DevicesInput.class);
+
+    private String strOS;
+    private String strVersion;
+    private String strLanguage;
+    private String strBrand;
+    private String strModel;
+
+    public DevicesInput(String strOS, String strVersion, String strLanguage, String strBrand, String strModel) {
+        this.strOS = strOS;
+        this.strVersion = strVersion;
+        this.strLanguage = strLanguage;
+        this.strBrand = strBrand;
+        this.strModel = strModel;
+    }
+
+    public static DevicesInput devicesData(String strOS, String strVersion, String strLanguage, String strBrand, String strModel) {
+        return Tasks.instrumented(DevicesInput.class, strOS, strVersion, strLanguage, strBrand, strModel);
     }
 
     @Override
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
                 Click.on(UTestDevicesData.OS_COMPUTER_BOX),
-                Enter.theValue("Windows").into(UTestDevicesData.OS_COMPUTER),
+                Enter.theValue(strOS).into(UTestDevicesData.OS_COMPUTER),
                 Hit.the(Keys.TAB).into(UTestDevicesData.OS_COMPUTER),
 
                 Click.on(UTestDevicesData.VERSION_BOX),
-                Enter.theValue("10").into(UTestDevicesData.VERSION),
+                Enter.theValue(strVersion).into(UTestDevicesData.VERSION),
                 Hit.the(Keys.TAB).into(UTestDevicesData.VERSION),
 
                 Click.on(UTestDevicesData.LANGUAGE_BOX),
-                Enter.theValue("Spanish").into(UTestDevicesData.LANGUAGE),
+                Enter.theValue(strLanguage).into(UTestDevicesData.LANGUAGE),
                 Hit.the(Keys.TAB).into(UTestDevicesData.LANGUAGE),
 
                 Click.on(UTestDevicesData.BRAND_BOX),
-                Enter.theValue("Xiaomi").into(UTestDevicesData.BRAND),
+                Enter.theValue(strBrand).into(UTestDevicesData.BRAND),
                 Hit.the(Keys.TAB).into(UTestDevicesData.BRAND),
 
                 Click.on(UTestDevicesData.MODEL_BOX),
-                Enter.theValue("Redmi 2").into(UTestDevicesData.MODEL),
+                Enter.theValue(strModel).into(UTestDevicesData.MODEL),
                 Hit.the(Keys.TAB).into(UTestDevicesData.MODEL),
 
                 Click.on(UTestDevicesData.OS_DEVICE_BOX),

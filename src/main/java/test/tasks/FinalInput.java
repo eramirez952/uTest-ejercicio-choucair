@@ -12,15 +12,22 @@ import test.userinterface.UTestFinal;
 import test.userinterface.UTestLocationData;
 
 public class FinalInput implements Task {
-    public static FinalInput finalData() {
-        return Tasks.instrumented(FinalInput.class);
+
+    private String strPassword;
+
+    public FinalInput(String strPassword) {
+        this.strPassword = strPassword;
+    }
+
+    public static FinalInput finalData(String strPassword) {
+        return Tasks.instrumented(FinalInput.class, strPassword);
     }
 
     @Override
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
-                Enter.theValue("6nWP@8vZ5zzmYx6").into(UTestFinal.PASSWORD),
-                Enter.theValue("6nWP@8vZ5zzmYx6").into(UTestFinal.CONFIRM_PASSWORD),
+                Enter.theValue(strPassword).into(UTestFinal.PASSWORD),
+                Enter.theValue(strPassword).into(UTestFinal.CONFIRM_PASSWORD),
                 Click.on(UTestFinal.STAY_INFORMED),
                 Click.on(UTestFinal.TERMS_OF_USE),
                 Click.on(UTestFinal.PRIVACY_SETTINGS),
